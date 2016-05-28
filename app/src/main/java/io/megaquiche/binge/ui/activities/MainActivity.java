@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
         // Set up the Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Meine Serien");
-        // toolbar.setNavigationIcon(getDrawable(R.drawable.ic_menu_white_24dp));
-
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
