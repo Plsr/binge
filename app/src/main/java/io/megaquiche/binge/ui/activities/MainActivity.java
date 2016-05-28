@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.Window;
 import android.view.WindowManager;
-import android.app.Activity;
 
 import io.megaquiche.binge.R;
 
@@ -26,8 +25,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.activity_main_title);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        
+        if(actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
 
         // Set StatusBar Color
         Window window = this.getWindow();
