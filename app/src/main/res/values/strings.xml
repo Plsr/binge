@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Binge</string>
+    <string name="preferences_file_key">io.megaquiche.binge.PREFERENCES</string>
 </resources>
