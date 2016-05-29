@@ -1,8 +1,13 @@
 package io.megaquiche.binge.ui.activities;
 
+import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -12,12 +17,21 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.megaquiche.binge.R;
+import io.megaquiche.binge.pojo.SeriesDummy;
+import io.megaquiche.binge.ui.adapter.MainActivityAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityAdapter.SeriesAdapterInterface {
 
-    private Toolbar toolbar;
     private static final String TAG = "MainActivity";
+    private Toolbar toolbar;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +56,22 @@ public class MainActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
 
-        ImageButton mark_watched = (ImageButton) findViewById(R.id.action_mark_watched);
+        mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recycler_view);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        List<SeriesDummy> seriesList  = createDummyData();
+        mAdapter = new MainActivityAdapter(this, seriesList, this);
+        mRecyclerView.setAdapter(mAdapter);
+
+        /*ImageButton mark_watched = (ImageButton) findViewById(R.id.action_mark_watched);
         mark_watched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 // TODO: Mark latest unseen epsiode as seen and display next unseen Episode
                 Log.d(TAG, "mark_watched onClick listener called");
             }
-        });
+        }); */
 
     }
 
@@ -58,5 +81,30 @@ public class MainActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu_home, menu);
 
         return true;
+    }
+
+    private List<SeriesDummy> createDummyData() {
+
+        List<SeriesDummy> dummyList = new ArrayList<SeriesDummy>();
+
+        SeriesDummy bigBangTheory = new SeriesDummy(getDrawable(R.drawable.placeholder_bbt_title),
+                "The Big Bang Theory", "Doktor Proton", "S06E08");
+
+        SeriesDummy greysAnatomy = new SeriesDummy(getDrawable(R.drawable.placeholder_ga_title),
+                "Greys Anatomy", "Ach Oh Gott die Liebe", "S18E02");
+
+        SeriesDummy betterCallSaul = new SeriesDummy(getDrawable(R.drawable.placeholder_bcs_title),
+                "Better Call Saul", "Tuco", "S01E06");
+
+        dummyList.add(bigBangTheory);
+        dummyList.add(greysAnatomy);
+        dummyList.add(betterCallSaul);
+
+        return dummyList;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        // TODO: Do things
     }
 }
