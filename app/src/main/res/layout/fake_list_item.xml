@@ -32,12 +32,16 @@
 
     </LinearLayout>
 
-    <ImageView
+
+    <ImageButton
+        android:id="@+id/action_mark_watched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_check_circle_black"
         android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
         android:layout_centerVertical="true"
+        android:padding="8dp"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         />
 
