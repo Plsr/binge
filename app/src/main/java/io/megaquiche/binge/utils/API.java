@@ -3,6 +3,7 @@ package io.megaquiche.binge.utils;
 import java.io.IOException;
 
 import io.megaquiche.binge.pojo.SearchResults;
+import io.megaquiche.binge.pojo.Season;
 import io.megaquiche.binge.pojo.Series;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -14,6 +15,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -28,6 +30,9 @@ public class API {
     public interface TheMovieDB {
         @GET("search/tv")
         Call<SearchResults> searchSeries(@Query("query") String query, @Query("page") int page);
+
+        @GET("tv/{seriesId}")
+        Call<Series> getSeries(@Path("seriesId") int seriesId);
     }
 
     public interface Res<T> {
@@ -42,7 +47,6 @@ public class API {
     private static TheMovieDB mTmdb = API.createService(API.TheMovieDB.class);
 
     public static <S> S createService(Class<S> serviceClass) {
-        System.out.println(TMDB_API_URL);
         mHttpClient.addInterceptor(new Interceptor() {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {
@@ -83,14 +87,53 @@ public class API {
                 }
             });
         }
+
+        public static void getSeries(int id, final Res<Series> res) {
+            Call<Series> call = mTmdb.getSeries(id);
+            call.enqueue(new Callback<Series>() {
+                @Override
+                public void onResponse(Call<Series> call, Response<Series> response) {
+                    if (response.isSuccessful()) {
+                        res.onSuccess(response.body());
+                    } else {
+                        res.onError();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Series> call, Throwable t) {
+                    res.onError();
+                }
+            });
+        }
     }
 
     public static void main(String[] args) {
+        /*
         API.Req.searchSeries("doctor", new Res<SearchResults>() {
             @Override
             public void onSuccess(SearchResults result) {
                 for (Series series : result.getSeriesList()) {
                     System.out.println(series.getName());
+                }
+            }
+
+            @Override
+            public void onError() {
+                System.out.println("Error!");
+            }
+        });
+        */
+
+        API.Req.getSeries(57243, new Res<Series>() {
+            @Override
+            public void onSuccess(Series result) {
+                System.out.println(result.getName());
+                System.out.println(result.getDescription());
+                System.out.println(result.getImageUrl());
+
+                for (Season season : result.getSeasons()) {
+                    System.out.println("Season " + season.getNumber() + ": " + season.getId());
                 }
             }
 
