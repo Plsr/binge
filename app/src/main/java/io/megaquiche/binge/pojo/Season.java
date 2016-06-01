@@ -1,5 +1,6 @@
 package io.megaquiche.binge.pojo;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -36,11 +37,11 @@ public class Season {
         mId = id;
     }
 
-    public List<Episode> getEpisodeList() {
+    public List<Episode> getEpisodes() {
         return mEpisodeList;
     }
 
-    public void setEpisodeList(List<Episode> episodeList) {
+    public void setEpisodes(List<Episode> episodeList) {
         mEpisodeList = episodeList;
     }
 }

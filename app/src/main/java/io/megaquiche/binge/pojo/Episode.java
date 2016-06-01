@@ -1,5 +1,6 @@
 package io.megaquiche.binge.pojo;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 /**
