@@ -2,6 +2,7 @@ package io.megaquiche.binge.utils;
 
 import java.io.IOException;
 
+import io.megaquiche.binge.pojo.Episode;
 import io.megaquiche.binge.pojo.SearchResults;
 import io.megaquiche.binge.pojo.Season;
 import io.megaquiche.binge.pojo.Series;
@@ -33,6 +34,10 @@ public class API {
 
         @GET("tv/{seriesId}")
         Call<Series> getSeries(@Path("seriesId") int seriesId);
+
+        @GET("tv/{seriesId}/season/{seasonNumber}")
+        Call<Season> getSeason(@Path("seriesId") int seriesId,
+                               @Path("seasonNumber") int seasonNumber);
     }
 
     public interface Res<T> {
@@ -88,8 +93,8 @@ public class API {
             });
         }
 
-        public static void getSeries(int id, final Res<Series> res) {
-            Call<Series> call = mTmdb.getSeries(id);
+        public static void getSeries(int seriesId, final Res<Series> res) {
+            Call<Series> call = mTmdb.getSeries(seriesId);
             call.enqueue(new Callback<Series>() {
                 @Override
                 public void onResponse(Call<Series> call, Response<Series> response) {
@@ -102,6 +107,25 @@ public class API {
 
                 @Override
                 public void onFailure(Call<Series> call, Throwable t) {
+                    res.onError();
+                }
+            });
+        }
+
+        public static void getSeason(int seriesId, int seasonNumber, final Res<Season> res) {
+            Call<Season> call = mTmdb.getSeason(seriesId, seasonNumber);
+            call.enqueue(new Callback<Season>() {
+                @Override
+                public void onResponse(Call<Season> call, Response<Season> response) {
+                    if (response.isSuccessful()) {
+                        res.onSuccess(response.body());
+                    } else {
+                        res.onError();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Season> call, Throwable t) {
                     res.onError();
                 }
             });
@@ -125,6 +149,7 @@ public class API {
         });
         */
 
+        /*
         API.Req.getSeries(57243, new Res<Series>() {
             @Override
             public void onSuccess(Series result) {
@@ -134,6 +159,25 @@ public class API {
 
                 for (Season season : result.getSeasons()) {
                     System.out.println("Season " + season.getNumber() + ": " + season.getId());
+                }
+            }
+
+            @Override
+            public void onError() {
+                System.out.println("Error!");
+            }
+        });
+        */
+
+        API.Req.getSeason(57243, 0, new Res<Season>() {
+            @Override
+            public void onSuccess(Season result) {
+                System.out.println("Season Nr: " + result.getNumber());
+                for (Episode episode : result.getEpisodes()) {
+                    System.out.println("--- Episode: " + episode.getNumber() +
+                            "(" + episode.getEpisodeCode() + ")");
+                    System.out.println("    " + episode.getName());
+                    System.out.println();
                 }
             }
 
