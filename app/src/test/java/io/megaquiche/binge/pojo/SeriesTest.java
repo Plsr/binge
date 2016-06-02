@@ -14,13 +14,14 @@ import static org.junit.Assert.*;
 public class SeriesTest {
     @Test
     public void parsing_withoutSeasons_isWorking() throws Exception {
-        String json = "{'name': 'Series Name', 'id': 941, 'overview': 'This is a description', "+
-                "'backdrop_path': '/image.jpg'}";
+        String json = "{'name': 'Series Name', 'original_name': 'Name der Serie', 'id': 941, "+
+                "'overview': 'This is a description', 'backdrop_path': '/image.jpg'}";
         Gson gson = new Gson();
         Series series = gson.fromJson(json, Series.class);
 
         assertEquals(941, series.getId());
         assertEquals("Series Name", series.getName());
+        assertEquals("Name der Serie", series.getOriginalName());
         assertEquals("This is a description", series.getDescription());
         assertEquals(Series.TMDB_BACKDROP_PREFIX + "/image.jpg", series.getImageUrl());
         assertNull(series.getSeasons());
