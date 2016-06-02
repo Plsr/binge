@@ -2,7 +2,6 @@ package io.megaquiche.binge.utils;
 
 import java.io.IOException;
 
-import io.megaquiche.binge.pojo.Episode;
 import io.megaquiche.binge.pojo.SearchResults;
 import io.megaquiche.binge.pojo.Season;
 import io.megaquiche.binge.pojo.Series;
@@ -33,14 +32,16 @@ public class API {
      */
     public interface TheMovieDB {
         @GET("search/tv")
-        Call<SearchResults> searchSeries(@Query("query") String query, @Query("page") int page);
+        Call<SearchResults> searchSeries(@Query("query") String query, @Query("page") int page,
+                                         @Query("language") String language);
 
         @GET("tv/{seriesId}")
-        Call<Series> getSeries(@Path("seriesId") int seriesId);
+        Call<Series> getSeries(@Path("seriesId") int seriesId, @Query("language") String language);
 
         @GET("tv/{seriesId}/season/{seasonNumber}")
         Call<Season> getSeason(@Path("seriesId") int seriesId,
-                               @Path("seasonNumber") int seasonNumber);
+                               @Path("seasonNumber") int seasonNumber,
+                               @Query("language") String language);
     }
 
     /**
@@ -86,8 +87,9 @@ public class API {
          * @param query Search query
          * @param res Response Listener
          */
-        public static void searchSeries(String query, final Res<SearchResults> res) {
-            searchSeries(query, 1, res);
+        public static void searchSeries(String query, String language,
+                                        final Res<SearchResults> res) {
+            searchSeries(query, 1, language, res);
         }
 
         /**
@@ -96,8 +98,9 @@ public class API {
          * @param page Result page
          * @param res Response Listener
          */
-        public static void searchSeries(String query, int page, final Res<SearchResults> res) {
-            Call<SearchResults> call = mTmdb.searchSeries(query, page);
+        public static void searchSeries(String query, int page, String language,
+                                        final Res<SearchResults> res) {
+            Call<SearchResults> call = mTmdb.searchSeries(query, page, language);
             call.enqueue(new Callback<SearchResults>() {
                 @Override
                 public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
@@ -120,13 +123,19 @@ public class API {
          * @param seriesId TheMovieDB ID of series
          * @param res Response Listener
          */
-        public static void getSeries(int seriesId, final Res<Series> res) {
-            Call<Series> call = mTmdb.getSeries(seriesId);
+        public static void getSeries(int seriesId, String language, final Res<Series> res) {
+            Call<Series> call = mTmdb.getSeries(seriesId, language);
             call.enqueue(new Callback<Series>() {
                 @Override
                 public void onResponse(Call<Series> call, Response<Series> response) {
                     if (response.isSuccessful()) {
-                        res.onSuccess(response.body());
+                        Series series = response.body();
+                        APIUtil.Lang.checkSeries(series, new APIUtil.Lang.Check<Series>() {
+                            @Override
+                            public void onFinished(Series result) {
+                                res.onSuccess(result);
+                            }
+                        });
                     } else {
                         res.onError();
                     }
@@ -145,8 +154,9 @@ public class API {
          * @param seasonNumber Number of Season (NOT ID!)
          * @param res Response Listener
          */
-        public static void getSeason(int seriesId, int seasonNumber, final Res<Season> res) {
-            Call<Season> call = mTmdb.getSeason(seriesId, seasonNumber);
+        public static void getSeason(int seriesId, int seasonNumber, String language,
+                                     final Res<Season> res) {
+            Call<Season> call = mTmdb.getSeason(seriesId, seasonNumber, language);
             call.enqueue(new Callback<Season>() {
                 @Override
                 public void onResponse(Call<Season> call, Response<Season> response) {
@@ -168,11 +178,13 @@ public class API {
     // Just a little sandbox here
     // Grab it for examples while I'm too lazy to write tests
     public static void main(String[] args) {
-//        API.Req.searchSeries("doctor", new Res<SearchResults>() {
+//        API.Req.searchSeries("doctor", "de", new Res<SearchResults>() {
 //            @Override
 //            public void onSuccess(SearchResults result) {
 //                for (Series series : result.getSeriesList()) {
 //                    System.out.println(series.getName());
+//                    System.out.println(series.getDescription());
+//                    System.out.println();
 //                }
 //            }
 //
@@ -182,23 +194,23 @@ public class API {
 //            }
 //        });
 
-//        API.Req.getSeries(57243, new Res<Series>() {
-//            @Override
-//            public void onSuccess(Series result) {
-//                System.out.println(result.getName());
-//                System.out.println(result.getDescription());
-//                System.out.println(result.getImageUrl());
-//
-//                for (Season season : result.getSeasons()) {
-//                    System.out.println("Season " + season.getNumber() + ": " + season.getId());
-//                }
-//            }
-//
-//            @Override
-//            public void onError() {
-//                System.out.println("Error!");
-//            }
-//        });
+        API.Req.getSeries(48552, "de", new Res<Series>() {
+            @Override
+            public void onSuccess(Series result) {
+                System.out.println(result.getName());
+                System.out.println(result.getDescription());
+                System.out.println(result.getImageUrl());
+
+                for (Season season : result.getSeasons()) {
+                    System.out.println("Season " + season.getNumber() + ": " + season.getId());
+                }
+            }
+
+            @Override
+            public void onError() {
+                System.out.println("Error!");
+            }
+        });
 
 //        API.Req.getSeason(57243, 0, new Res<Season>() {
 //            @Override
