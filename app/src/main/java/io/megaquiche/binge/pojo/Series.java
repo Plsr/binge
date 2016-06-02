@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import io.megaquiche.binge.utils.Utils;
-
 /**
  * Created by Timo Maemecke (@timomeh) on 27/05/16.
  * <p/>
@@ -21,10 +19,10 @@ public class Series {
     @SerializedName("seasons") private List<Season> mSeasons;
 
     public Series(String name, int id, String imageUrl, String description, List<Season> seasons) {
-        mName = Utils.onNullEmptyString(name);
+        mName = name;
         mId = id;
         mImageUrl = imageUrl;
-        mDescription = Utils.onNullEmptyString(description);
+        mDescription = description;
         mSeasons = seasons;
     }
 
