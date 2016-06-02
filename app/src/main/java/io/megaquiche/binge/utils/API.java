@@ -25,7 +25,7 @@ import retrofit2.http.Query;
  * TODO: Add a class header comment
  */
 public class API {
-    public static final String TMDB_API_URL = "http://api.themoviedb.org/3/";
+    public static final String TMDB_API_URL = "https://api.themoviedb.org/3/";
     private static final String TMDB_API_KEY = "1dced2fb1cbb9c4bbee8fbb7a6d83f67";
 
     /**
