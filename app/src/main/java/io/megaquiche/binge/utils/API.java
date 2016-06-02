@@ -28,6 +28,9 @@ public class API {
     public static final String TMDB_API_URL = "http://api.themoviedb.org/3/";
     private static final String TMDB_API_KEY = "1dced2fb1cbb9c4bbee8fbb7a6d83f67";
 
+    /**
+     * Interface declares all API methods
+     */
     public interface TheMovieDB {
         @GET("search/tv")
         Call<SearchResults> searchSeries(@Query("query") String query, @Query("page") int page);
@@ -40,6 +43,10 @@ public class API {
                                @Path("seasonNumber") int seasonNumber);
     }
 
+    /**
+     * Response Interface
+     * @param <T> Class of Response
+     */
     public interface Res<T> {
         void onSuccess(T result);
         void onError();
@@ -51,6 +58,10 @@ public class API {
             .addConverterFactory(GsonConverterFactory.create());
     private static TheMovieDB mTmdb = API.createService(API.TheMovieDB.class);
 
+    /**
+     * Create Request Service Client
+     * w/ api_key attachment for each request
+     */
     public static <S> S createService(Class<S> serviceClass) {
         mHttpClient.addInterceptor(new Interceptor() {
             @Override
@@ -70,10 +81,21 @@ public class API {
     }
 
     public static class Req {
+        /**
+         * search/tv by query (for first result page)
+         * @param query Search query
+         * @param res Response Listener
+         */
         public static void searchSeries(String query, final Res<SearchResults> res) {
             searchSeries(query, 1, res);
         }
 
+        /**
+         * search/tv by query
+         * @param query Search query
+         * @param page Result page
+         * @param res Response Listener
+         */
         public static void searchSeries(String query, int page, final Res<SearchResults> res) {
             Call<SearchResults> call = mTmdb.searchSeries(query, page);
             call.enqueue(new Callback<SearchResults>() {
@@ -93,6 +115,11 @@ public class API {
             });
         }
 
+        /**
+         * Get Series Information
+         * @param seriesId TheMovieDB ID of series
+         * @param res Response Listener
+         */
         public static void getSeries(int seriesId, final Res<Series> res) {
             Call<Series> call = mTmdb.getSeries(seriesId);
             call.enqueue(new Callback<Series>() {
@@ -112,6 +139,12 @@ public class API {
             });
         }
 
+        /**
+         * Get Season Information
+         * @param seriesId TheMovieDB ID of series
+         * @param seasonNumber Number of Season (NOT ID!)
+         * @param res Response Listener
+         */
         public static void getSeason(int seriesId, int seasonNumber, final Res<Season> res) {
             Call<Season> call = mTmdb.getSeason(seriesId, seasonNumber);
             call.enqueue(new Callback<Season>() {
@@ -132,60 +165,58 @@ public class API {
         }
     }
 
+    // Just a little sandbox here
+    // Grab it for examples while I'm too lazy to write tests
     public static void main(String[] args) {
-        /*
-        API.Req.searchSeries("doctor", new Res<SearchResults>() {
-            @Override
-            public void onSuccess(SearchResults result) {
-                for (Series series : result.getSeriesList()) {
-                    System.out.println(series.getName());
-                }
-            }
+//        API.Req.searchSeries("doctor", new Res<SearchResults>() {
+//            @Override
+//            public void onSuccess(SearchResults result) {
+//                for (Series series : result.getSeriesList()) {
+//                    System.out.println(series.getName());
+//                }
+//            }
+//
+//            @Override
+//            public void onError() {
+//                System.out.println("Error!");
+//            }
+//        });
 
-            @Override
-            public void onError() {
-                System.out.println("Error!");
-            }
-        });
-        */
+//        API.Req.getSeries(57243, new Res<Series>() {
+//            @Override
+//            public void onSuccess(Series result) {
+//                System.out.println(result.getName());
+//                System.out.println(result.getDescription());
+//                System.out.println(result.getImageUrl());
+//
+//                for (Season season : result.getSeasons()) {
+//                    System.out.println("Season " + season.getNumber() + ": " + season.getId());
+//                }
+//            }
+//
+//            @Override
+//            public void onError() {
+//                System.out.println("Error!");
+//            }
+//        });
 
-        /*
-        API.Req.getSeries(57243, new Res<Series>() {
-            @Override
-            public void onSuccess(Series result) {
-                System.out.println(result.getName());
-                System.out.println(result.getDescription());
-                System.out.println(result.getImageUrl());
-
-                for (Season season : result.getSeasons()) {
-                    System.out.println("Season " + season.getNumber() + ": " + season.getId());
-                }
-            }
-
-            @Override
-            public void onError() {
-                System.out.println("Error!");
-            }
-        });
-        */
-
-        API.Req.getSeason(57243, 0, new Res<Season>() {
-            @Override
-            public void onSuccess(Season result) {
-                System.out.println("Season Nr: " + result.getNumber());
-                for (Episode episode : result.getEpisodes()) {
-                    System.out.println("--- Episode: " + episode.getNumber() +
-                            "(" + episode.getEpisodeCode() + ")");
-                    System.out.println("    " + episode.getName());
-                    System.out.println();
-                }
-            }
-
-            @Override
-            public void onError() {
-                System.out.println("Error!");
-            }
-        });
+//        API.Req.getSeason(57243, 0, new Res<Season>() {
+//            @Override
+//            public void onSuccess(Season result) {
+//                System.out.println("Season Nr: " + result.getNumber());
+//                for (Episode episode : result.getEpisodes()) {
+//                    System.out.println("--- Episode: " + episode.getNumber() +
+//                            "(" + episode.getEpisodeCode() + ")");
+//                    System.out.println("    " + episode.getName());
+//                    System.out.println();
+//                }
+//            }
+//
+//            @Override
+//            public void onError() {
+//                System.out.println("Error!");
+//            }
+//        });
     }
 
 
