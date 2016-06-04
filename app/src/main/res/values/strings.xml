@@ -2,4 +2,7 @@
     <string name="app_name">Binge</string>
     <string name="action_search">Search</string>
     <string name="activity_main_title">Meine Serien</string>
+
+    <string name="series_card_placeholder">A Show</string>
+    <string name="image_description_placeholder">Image Description</string>
 </resources>

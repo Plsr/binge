@@ -14,52 +14,50 @@
         card_view:cardCornerRadius="2dp"
         card_view:cardElevation="2dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/title_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:src="@drawable/placeholder_bbt_title"
+                android:adjustViewBounds="true"
+                android:cropToPadding="false"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/image_description_placeholder" />
+
+            <!-- This Relative Layout contains the gradient overlay for the image (scrim).
+                 Passing only one Element into a Layout is somewhat ugly, but it is the only way
+                 to render the gradient properly. -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@id/title_image"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:id="@+id/image_layout"
+                android:background="@drawable/scrim"
                 >
-
-                <ImageView
-                    android:id="@+id/title_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/placeholder_bbt_title"
-                    android:adjustViewBounds="true"
-                    android:cropToPadding="false"
-                    android:scaleType="fitXY"
-                    android:contentDescription="Placeholder Image"
-                    />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignBottom="@+id/title_image"
-                    android:background="@drawable/scrim" />
 
                 <TextView
                     android:id="@+id/series_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="The Big Bang Theory"
+                    android:text="@string/series_card_placeholder"
                     android:textColor="@color/white"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
                     android:textSize="@dimen/abc_text_size_headline_material"
-                    android:layout_alignBottom="@id/title_image" />
-
-
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"/>
 
             </RelativeLayout>
 
             <include layout="@layout/fake_list_item"
+                     android:layout_below="@id/image_layout"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
                 />
-        </LinearLayout>
+        </RelativeLayout>
 
 
 
