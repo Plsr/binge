@@ -188,23 +188,23 @@ public class API {
 //            }
 //        });
 
-        API.Req.getSeries(48552, "de", new Res<Series>() {
-            @Override
-            public void onSuccess(Series result) {
-                System.out.println(result.getName());
-                System.out.println(result.getDescription());
-                System.out.println(result.getImageUrl());
-
-                for (Season season : result.getSeasons()) {
-                    System.out.println("Season " + season.getNumber() + ": " + season.getId());
-                }
-            }
-
-            @Override
-            public void onError() {
-                System.out.println("Error!");
-            }
-        });
+//        API.Req.getSeries(48552, "de", new Res<Series>() {
+//            @Override
+//            public void onSuccess(Series result) {
+//                System.out.println(result.getName());
+//                System.out.println(result.getDescription());
+//                System.out.println(result.getImageUrl());
+//
+//                for (Season season : result.getSeasons()) {
+//                    System.out.println("Season " + season.getNumber() + ": " + season.getId());
+//                }
+//            }
+//
+//            @Override
+//            public void onError() {
+//                System.out.println("Error!");
+//            }
+//        });
 
 //        API.Req.getSeason(57243, 0, new Res<Season>() {
 //            @Override
