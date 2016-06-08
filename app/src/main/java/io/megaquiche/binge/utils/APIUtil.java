@@ -14,7 +14,6 @@ public class APIUtil {
         }
 
         public static void checkSeries(final Series series, final Check<Series> check) {
-            System.out.println(series.getDescription() == null);
             if (series.getDescription().isEmpty()) {
                 API.Req.getSeries(series.getId(), "en", new API.Res<Series>() {
                     @Override
