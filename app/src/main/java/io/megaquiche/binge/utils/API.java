@@ -129,13 +129,7 @@ public class API {
                 @Override
                 public void onResponse(Call<Series> call, Response<Series> response) {
                     if (response.isSuccessful()) {
-                        Series series = response.body();
-                        APIUtil.Lang.checkSeries(series, new APIUtil.Lang.Check<Series>() {
-                            @Override
-                            public void onFinished(Series result) {
-                                res.onSuccess(result);
-                            }
-                        });
+                        res.onSuccess(response.body());
                     } else {
                         res.onError();
                     }
