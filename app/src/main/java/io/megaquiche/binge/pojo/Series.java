@@ -13,13 +13,15 @@ public class Series {
     public static final String TMDB_BACKDROP_PREFIX = "http://image.tmdb.org/t/p/w780";
 
     @SerializedName("name") private String mName;
+    @SerializedName("original_name") private String mOriginalName;
     @SerializedName("id") private int mId;
     @SerializedName("backdrop_path") private String mImageUrl;
     @SerializedName("overview") private String mDescription;
     @SerializedName("seasons") private List<Season> mSeasons;
 
-    public Series(String name, int id, String imageUrl, String description, List<Season> seasons) {
+    public Series(String name, String originalName, int id, String imageUrl, String description, List<Season> seasons) {
         mName = name;
+        mOriginalName = originalName;
         mId = id;
         mImageUrl = imageUrl;
         mDescription = description;
@@ -40,6 +42,14 @@ public class Series {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    public String getOriginalName() {
+        return mOriginalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        mOriginalName = originalName;
     }
 
     public String getImageUrl() {
