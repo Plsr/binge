@@ -18,7 +18,10 @@ import io.megaquiche.binge.R;
 import io.megaquiche.binge.pojo.SeriesDummy;
 
 /**
- * Created by Cheese on 29/05/16.
+ * Adapter for the RecyclerView in the MainActivity.
+ * All very straight forward.
+ *
+ * Created by plsr on 29/05/16.
  */
 public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.ViewHolder> {
 
@@ -82,6 +85,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         episodeTitle.setText(series.getEpisodeTitle());
         episodeNumber.setText(series.getEpisodeCount());
 
+        // onClickListerner for ImageButton
         actionMarkWatched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 // TODO: Mark latest unseen epsiode as seen and display next unseen Episode

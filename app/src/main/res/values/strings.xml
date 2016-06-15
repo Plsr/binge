@@ -3,6 +3,10 @@
     <string name="action_search">Search</string>
     <string name="activity_main_title">Meine Serien</string>
 
+    <string name="action_mark_watched_image_description">Checkmark</string>
+
     <string name="series_card_placeholder">A Show</string>
     <string name="image_description_placeholder">Image Description</string>
+    <string name="episode_title_placeholder">An Edpisode</string>
+    <string name="episode_number_placeholder">S00E00</string>
 </resources>

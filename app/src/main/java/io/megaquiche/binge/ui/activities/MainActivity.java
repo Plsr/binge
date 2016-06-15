@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
         toolbar.setTitle(R.string.activity_main_title);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        
+
+        // Check if actionBar != null to evade the compiler warning
         if(actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -50,16 +51,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.color_primary_dark));
 
+        // Set up RecyclerView for Series Cards
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recycler_view);
-
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        // Create dummy data and fill the RecyclerView with it
         List<SeriesDummy> seriesList  = createDummyData();
         mAdapter = new MainActivityAdapter(this, seriesList, this);
         mRecyclerView.setAdapter(mAdapter);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
         return true;
     }
 
+    /**
+     * Creates dummy data to test the RecyclerView
+     * May be removed in later versions.
+     * @return A list with dummy data
+     */
     private List<SeriesDummy> createDummyData() {
 
         List<SeriesDummy> dummyList = new ArrayList<SeriesDummy>();
