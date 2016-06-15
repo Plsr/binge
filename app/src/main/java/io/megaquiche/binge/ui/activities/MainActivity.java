@@ -59,14 +59,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
         mAdapter = new MainActivityAdapter(this, seriesList, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        /*ImageButton mark_watched = (ImageButton) findViewById(R.id.action_mark_watched);
-        mark_watched.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                // TODO: Mark latest unseen epsiode as seen and display next unseen Episode
-                Log.d(TAG, "mark_watched onClick listener called");
-            }
-        }); */
-
     }
 
     @Override

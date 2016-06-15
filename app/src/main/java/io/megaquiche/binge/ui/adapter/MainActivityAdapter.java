@@ -4,9 +4,11 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,8 @@ import io.megaquiche.binge.pojo.SeriesDummy;
  * Created by Cheese on 29/05/16.
  */
 public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.ViewHolder> {
+
+    public static final String TAG = "MainActivityAdapter";
 
     public interface SeriesAdapterInterface {
         void onItemClick(int position);
@@ -35,6 +39,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         TextView seriesTitle;
         TextView episodeTitle;
         TextView episodeNumber;
+        ImageButton actionMarkWatched;
 
         public ViewHolder(View v) {
             super(v);
@@ -43,6 +48,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
             seriesTitle = (TextView) v.findViewById(R.id.series_title);
             episodeTitle = (TextView) v.findViewById(R.id.episode_title);
             episodeNumber = (TextView) v.findViewById(R.id.episode_number);
+            actionMarkWatched = (ImageButton) v.findViewById(R.id.action_mark_watched);
 
         }
     }
@@ -62,18 +68,26 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     }
 
     @Override
-    public void onBindViewHolder(MainActivityAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MainActivityAdapter.ViewHolder holder, final int position) {
         final SeriesDummy series = mSeries.get(position);
         CardView seriesCardView = (holder).seriesCardView;
         ImageView titleImage = (holder).titleImage;
         TextView seriesTitle = (holder).seriesTitle;
         TextView episodeTitle = (holder).episodeTitle;
         TextView episodeNumber = (holder).episodeNumber;
+        ImageButton actionMarkWatched = (holder).actionMarkWatched;
 
         titleImage.setImageDrawable(series.getTitleImage());
         seriesTitle.setText(series.getSeriesTitle());
         episodeTitle.setText(series.getEpisodeTitle());
         episodeNumber.setText(series.getEpisodeCount());
+
+        actionMarkWatched.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                // TODO: Mark latest unseen epsiode as seen and display next unseen Episode
+                Log.d(TAG, "actionMarkWatched onClick listener called in position " + position);
+            }
+        });
 
     }
 
@@ -81,6 +95,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     public int getItemCount() {
         return mSeries.size();
     }
+
 
 
 }
