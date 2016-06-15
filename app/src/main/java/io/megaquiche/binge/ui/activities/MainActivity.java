@@ -1,21 +1,15 @@
 package io.megaquiche.binge.ui.activities;
 
-import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
+        window.setStatusBarColor(this.getResources().getColor(R.color.color_primary_dark));
 
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recycler_view);
 
