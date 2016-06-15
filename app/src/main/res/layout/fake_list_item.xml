@@ -19,18 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Händchen halten, bitte!"
-            android:textColor="#000000"
-            android:textSize="@dimen/abc_text_size_subhead_material"
-            android:alpha="0.87"/>
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/abc_text_size_subhead_material" />
 
         <TextView
             android:id="@+id/episode_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="S04E12"
-            android:textColor="#000000"
-            android:textSize="@dimen/abc_text_size_body_1_material"
-            android:alpha="0.54"/>
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/abc_text_size_body_1_material" />
 
     </LinearLayout>
 
