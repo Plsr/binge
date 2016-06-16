@@ -9,6 +9,4 @@
     <string name="image_description_placeholder">Image Description</string>
     <string name="episode_title_placeholder">An Edpisode</string>
     <string name="episode_number_placeholder">S00E00</string>
-
-    <string name="preferences_file_key">io.megaquiche.binge.PREFERENCES</string>
 </resources>
