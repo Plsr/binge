@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/episode_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/episode_title_placeholder"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/abc_text_size_subhead_material" />
+
+        <TextView
+            android:id="@+id/episode_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/episode_number_placeholder"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/abc_text_size_body_1_material" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/action_mark_watched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/button_mark_watched"
+        android:contentDescription="@string/action_mark_watched_image_description"
+        android:background="@drawable/ripple"
+        android:padding="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        />
+</RelativeLayout>
