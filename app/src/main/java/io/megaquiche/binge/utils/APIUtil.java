@@ -1,5 +1,7 @@
 package io.megaquiche.binge.utils;
 
+import java.util.List;
+
 import io.megaquiche.binge.pojo.Series;
 
 /**
@@ -17,9 +19,10 @@ public class APIUtil {
             if (series.getDescription().isEmpty()) {
                 API.Req.getSeries(series.getId(), "en", new API.Res<Series>() {
                     @Override
-                    public void onSuccess(Series result) {
+                    public List<Series> onSuccess(Series result) {
                         series.setDescription(result.getDescription());
                         check.onFinished(series);
+                        return null;
                     }
 
                     @Override
