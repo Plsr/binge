@@ -16,6 +16,7 @@ import java.util.List;
 
 import io.megaquiche.binge.R;
 import io.megaquiche.binge.pojo.SeriesDummy;
+import io.megaquiche.binge.pojo.Series;
 
 /**
  * Adapter for the RecyclerView in the MainActivity.
@@ -32,7 +33,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     }
 
     private Context mContext;
-    private List<SeriesDummy> mSeries;
+    private List<Series> mSeries;
     private SeriesAdapterInterface mInterface;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -56,7 +57,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         }
     }
 
-    public MainActivityAdapter (Context context, List<SeriesDummy> series, SeriesAdapterInterface rInterface) {
+    public MainActivityAdapter (Context context, List<Series> series, SeriesAdapterInterface rInterface) {
         mContext = context;
         mSeries = series;
         mInterface = rInterface;
@@ -72,7 +73,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
     @Override
     public void onBindViewHolder(MainActivityAdapter.ViewHolder holder, final int position) {
-        final SeriesDummy series = mSeries.get(position);
+        final Series series = mSeries.get(position);
         CardView seriesCardView = (holder).seriesCardView;
         ImageView titleImage = (holder).titleImage;
         TextView seriesTitle = (holder).seriesTitle;
@@ -80,10 +81,11 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         TextView episodeNumber = (holder).episodeNumber;
         ImageButton actionMarkWatched = (holder).actionMarkWatched;
 
-        titleImage.setImageDrawable(series.getTitleImage());
-        seriesTitle.setText(series.getSeriesTitle());
-        episodeTitle.setText(series.getEpisodeTitle());
-        episodeNumber.setText(series.getEpisodeCount());
+        // TODO: Get rest of data
+        //titleImage.setImageDrawable(series.get());
+        seriesTitle.setText(series.getName());
+        //episodeTitle.setText(series.get());
+        //episodeNumber.setText(series.getEpisodeCount());
 
         // onClickListerner for ImageButton
         actionMarkWatched.setOnClickListener(new View.OnClickListener(){

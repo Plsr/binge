@@ -1,5 +1,6 @@
 package io.megaquiche.binge.ui.activities;
 
+import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.megaquiche.binge.R;
+import io.megaquiche.binge.pojo.Series;
 import io.megaquiche.binge.pojo.SeriesDummy;
 import io.megaquiche.binge.ui.adapter.MainActivityAdapter;
+import io.megaquiche.binge.utils.API;
 
 public class MainActivity extends AppCompatActivity implements MainActivityAdapter.SeriesAdapterInterface {
 
@@ -58,8 +61,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
 
         // Create dummy data and fill the RecyclerView with it
         List<SeriesDummy> seriesList  = createDummyData();
-        mAdapter = new MainActivityAdapter(this, seriesList, this);
-        mRecyclerView.setAdapter(mAdapter);
+        //mAdapter = new MainActivityAdapter(this, seriesList, this);
+        //mRecyclerView.setAdapter(mAdapter);
+
+        // Test real Data
+        List<Series> seriesListReal = createData(this, this);
+
+        // DEBUG TODO: Remove
+        System.out.println("Return value from createData(): " + seriesListReal);
 
     }
 
@@ -95,6 +104,45 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
         dummyList.add(betterCallSaul);
 
         return dummyList;
+    }
+
+    /**
+     * // TODO: Implement in a reasonable way, wtf dude
+     * Test with real data
+     * @return
+     */
+    private List<Series> createData(final Context context, final MainActivityAdapter.SeriesAdapterInterface seriesAdapterInterface) {
+        final List<Series> seriesList = new ArrayList<>();
+
+        System.out.println("createData() has been called!");
+
+        API.Req.getSeries(48552, "de", new API.Res<Series>() {
+
+            @Override
+            public List<Series> onSuccess(Series result) {
+                // DEBUG TODO: Remove
+                System.out.println("Series name: " + result.getName());
+
+                seriesList.add(result);
+
+                // DEBUG TODO: Remove
+                System.out.println("SeriesList size: " + seriesList.size());
+
+                mAdapter = new MainActivityAdapter(context, seriesList, seriesAdapterInterface);
+                mRecyclerView.setAdapter(mAdapter);
+
+
+                return seriesList;
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+
+
+        return null;
     }
 
     @Override

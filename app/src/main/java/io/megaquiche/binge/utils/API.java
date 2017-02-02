@@ -1,6 +1,7 @@
 package io.megaquiche.binge.utils;
 
 import java.io.IOException;
+import java.util.List;
 
 import io.megaquiche.binge.pojo.SearchResults;
 import io.megaquiche.binge.pojo.Season;
@@ -49,7 +50,7 @@ public class API {
      * @param <T> Class of Response
      */
     public interface Res<T> {
-        void onSuccess(T result);
+        List<Series> onSuccess(T result);
         void onError();
     }
 
