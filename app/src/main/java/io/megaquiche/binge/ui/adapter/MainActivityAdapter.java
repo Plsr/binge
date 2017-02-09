@@ -93,6 +93,14 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
             }
         });
 
+        // onClickListener for whole card
+        seriesCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInterface.onItemClick(position);
+            }
+        });
+
     }
 
     @Override

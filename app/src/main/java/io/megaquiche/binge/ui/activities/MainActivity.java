@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.Window;
@@ -100,5 +101,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
     @Override
     public void onItemClick(int position) {
         // TODO: Do things
+        Log.d(TAG, "onItemClick called for position: " + position); // DEBUG
     }
 }
