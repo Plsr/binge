@@ -46,7 +46,7 @@ public class SeriesService {
                 .addBaseUrl(BASE_URL)
                 .addGsonSupport()
                 .addReuseConnectionSupport()
-                .addApiKey("api_key", API_KEY)
+                .addQueryParameterToUrl("api_key", API_KEY)
                 .buildForService(SeriesService.TheMovieDatabase.class);
     }
 
@@ -58,7 +58,8 @@ public class SeriesService {
         mTheMovieDatabase = new RetrofitFactory()
                 .addBaseUrl(baseUrl)
                 .addGsonSupport()
-                .addApiKey("api_key", API_KEY)
+                .addReuseConnectionSupport()
+                .addQueryParameterToUrl("api_key", API_KEY)
                 .buildForService(SeriesService.TheMovieDatabase.class);
     }
 
