@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import io.megaquiche.binge.models.Season;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -25,7 +26,7 @@ public class Series extends RealmObject {
     @SerializedName("backdrop_path") private String mBackdropUrl;
     @SerializedName("poster_path") private String mPosterUrl;
     @SerializedName("overview") private String mDescription;
-    @SerializedName("seasons") private List<Season> mSeasons;
+    @SerializedName("seasons") private RealmList<Season> mSeasons;
 
     public Series() {
         mId = 0;
@@ -37,7 +38,7 @@ public class Series extends RealmObject {
         mSeasons = null;
     }
 
-    public Series(String name, String originalName, int id, String backdropUrl, String posterUrl, String description, List<Season> seasons) {
+    public Series(String name, String originalName, int id, String backdropUrl, String posterUrl, String description, RealmList<Season> seasons) {
         mName = name;
         mOriginalName = originalName;
         mId = id;
@@ -99,7 +100,7 @@ public class Series extends RealmObject {
         return mSeasons;
     }
 
-    public void setSeasons(List<Season> seasons) {
+    public void setSeasons(RealmList<Season> seasons) {
         mSeasons = seasons;
     }
 

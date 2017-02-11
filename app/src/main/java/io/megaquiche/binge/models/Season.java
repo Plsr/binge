@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import io.megaquiche.binge.models.Episode;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -18,7 +19,7 @@ public class Season extends RealmObject {
     @SerializedName("id") private int mId;
 
     @SerializedName("season_number") private int mNumber;
-    @SerializedName("episodes") private List<Episode> mEpisodeList;
+    @SerializedName("episodes") private RealmList<Episode> mEpisodeList;
     @SerializedName("episode_count") private int mEpisodeCount;
 
     private boolean mCompleted;
@@ -33,7 +34,7 @@ public class Season extends RealmObject {
         mSeries = null;
     }
 
-    public Season(int number, int id, List<Episode> episodeList, int episodeCount, boolean completed, Series series) {
+    public Season(int number, int id, RealmList<Episode> episodeList, int episodeCount, boolean completed, Series series) {
         mNumber = number;
         mId = id;
         mEpisodeList = episodeList;
@@ -62,7 +63,7 @@ public class Season extends RealmObject {
         return mEpisodeList;
     }
 
-    public void setEpisodes(List<Episode> episodeList) {
+    public void setEpisodes(RealmList<Episode> episodeList) {
         mEpisodeList = episodeList;
     }
 
