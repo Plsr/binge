@@ -35,12 +35,12 @@ public class RetrofitFactory {
 
     public RetrofitFactory addReuseConnectionSupport() {
         ConnectionPool connectionPool = new ConnectionPool(1, 60, TimeUnit.SECONDS);
-        mHttpClient = mHttpClient.connectionPool(connectionPool);
+        mHttpClient.connectionPool(connectionPool);
         return this;
     }
 
     public RetrofitFactory addApiKey(final String queryParameter, final String apiKey) {
-        mHttpClient = mHttpClient.addInterceptor(new Interceptor() {
+        mHttpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 HttpUrl url = chain.request().url()
