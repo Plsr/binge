@@ -114,6 +114,7 @@ public class SeriesService {
 
     /**
      * Search a specific Series result page.
+     *
      * @param query       Search Query
      * @param pageNumber  Page Number
      * @param next        Callback
