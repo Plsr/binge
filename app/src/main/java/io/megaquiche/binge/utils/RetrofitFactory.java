@@ -18,43 +18,86 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitFactory {
+
     private static OkHttpClient.Builder mHttpClient = new OkHttpClient.Builder();
     private static Retrofit.Builder mBuilder = new Retrofit.Builder();
 
     public RetrofitFactory() { }
 
-    public RetrofitFactory addBaseUrl(final String baseUrl) {
-        mBuilder.baseUrl(baseUrl);
+    /**
+     * Set the URL (host) of the foreign API.
+     * This is a required step.
+     *
+     * @param url The baseURL of the API
+     * @return The current RetrofitFactory
+     */
+    public RetrofitFactory addBaseUrl(String url) {
+        mBuilder.baseUrl(url);
         return this;
     }
 
+    /**
+     * Add Support for Converting JSON to POJOs via GSON.
+     *
+     * @return The current RetrofitFactory
+     */
     public RetrofitFactory addGsonSupport() {
         mBuilder.addConverterFactory(GsonConverterFactory.create());
         return this;
     }
 
+    /**
+     * Add Support for a connection reuse, e.g. HTTP/1.x keep-alive, SPDY, or HTTP/2.
+     *
+     * @return The current RetrofitFactory
+     */
     public RetrofitFactory addReuseConnectionSupport() {
         ConnectionPool connectionPool = new ConnectionPool(1, 60, TimeUnit.SECONDS);
         mHttpClient.connectionPool(connectionPool);
         return this;
     }
 
-    public RetrofitFactory addApiKey(final String queryParameter, final String apiKey) {
+    /**
+     * Add a query parameter to every URL.
+     *
+     * @param key The query parameter's value
+     * @param value The query parameter's value
+     * @return The current RetrofitFactory
+     */
+    public RetrofitFactory addQueryParameterToUrl(final String key, final String value) {
+        // Interject something into the Request
         mHttpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                HttpUrl url = chain.request().url()
+                // Get the original Request
+                Request originalRequest = chain.request();
+
+                // Take the Request's old url and build it with additional query parameters
+                // to a new url
+                HttpUrl newUrl = originalRequest.url()
                         .newBuilder()
-                        .addQueryParameter(queryParameter, apiKey)
+                        .addQueryParameter(key, value)
                         .build();
 
-                Request request = chain.request().newBuilder().url(url).build();
-                return chain.proceed(request);
+                // Take the original Request and set its url to the new url
+                Request interceptedRequest = originalRequest
+                        .newBuilder()
+                        .url(newUrl)
+                        .build();
+
+                // Add the new Request back to the client
+                return chain.proceed(interceptedRequest);
             }
         });
         return this;
     }
 
+    /**
+     * Build RetrofitFactory to Retrofit based on previous methods.
+     *
+     * @param ServiceClass  Reference to the Class Object of the your Retrofit Interface
+     * @return              The builded Retrofit Service
+     */
     public <S> S buildForService(Class<S> ServiceClass) {
         // Build OkHttp Client
         OkHttpClient client = mHttpClient.build();
@@ -68,4 +111,5 @@ public class RetrofitFactory {
         // Create Retrofit for specified Service
         return retrofit.create(ServiceClass);
     }
+
 }
