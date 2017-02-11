@@ -12,8 +12,8 @@ import io.realm.annotations.PrimaryKey;
 
 public class Episode extends RealmObject {
 
-    @SerializedName("id")
     @PrimaryKey
+    @SerializedName("id")
     private int mId;
 
     @SerializedName("episode_number") private int mNumber;
