@@ -1,7 +1,9 @@
 package io.megaquiche.binge.utils;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.ConnectionPool;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -31,8 +33,14 @@ public class RetrofitFactory {
         return this;
     }
 
+    public RetrofitFactory addReuseConnectionSupport() {
+        ConnectionPool connectionPool = new ConnectionPool(1, 60, TimeUnit.SECONDS);
+        mHttpClient = mHttpClient.connectionPool(connectionPool);
+        return this;
+    }
+
     public RetrofitFactory addApiKey(final String queryParameter, final String apiKey) {
-        mHttpClient.addInterceptor(new Interceptor() {
+        mHttpClient = mHttpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 HttpUrl url = chain.request().url()
@@ -44,13 +52,20 @@ public class RetrofitFactory {
                 return chain.proceed(request);
             }
         });
-
-        mBuilder.client(mHttpClient.build());
         return this;
     }
 
     public <S> S buildForService(Class<S> ServiceClass) {
+        // Build OkHttp Client
+        OkHttpClient client = mHttpClient.build();
+
+        // Add OkHttp Client to Retrofit
+        mBuilder.client(client);
+
+        // Finally, build Retrofit Client
         Retrofit retrofit = mBuilder.build();
+
+        // Create Retrofit for specified Service
         return retrofit.create(ServiceClass);
     }
 }

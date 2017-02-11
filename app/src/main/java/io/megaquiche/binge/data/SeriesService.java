@@ -45,6 +45,7 @@ public class SeriesService {
         mTheMovieDatabase = new RetrofitFactory()
                 .addBaseUrl(BASE_URL)
                 .addGsonSupport()
+                .addReuseConnectionSupport()
                 .addApiKey("api_key", API_KEY)
                 .buildForService(SeriesService.TheMovieDatabase.class);
     }
