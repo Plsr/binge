@@ -28,7 +28,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     public static final String TAG = "MainActivityAdapter";
 
     public interface SeriesAdapterInterface {
-        void onItemClick(int position);
+        void onItemClick(int position, SeriesDummy seriesDummy);
     }
 
     private Context mContext;
@@ -80,7 +80,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         TextView episodeNumber = (holder).episodeNumber;
         ImageButton actionMarkWatched = (holder).actionMarkWatched;
 
-        titleImage.setImageDrawable(series.getTitleImage());
+        titleImage.setImageDrawable(mContext.getDrawable(series.getTitleImageIdentifier()));
         seriesTitle.setText(series.getSeriesTitle());
         episodeTitle.setText(series.getEpisodeTitle());
         episodeNumber.setText(series.getEpisodeCount());
@@ -97,11 +97,13 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         seriesCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mInterface.onItemClick(position);
+                mInterface.onItemClick(position, mSeries.get(position));
             }
         });
 
     }
+
+
 
     @Override
     public int getItemCount() {
