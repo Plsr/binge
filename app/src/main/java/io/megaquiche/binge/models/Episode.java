@@ -9,7 +9,6 @@ import io.realm.annotations.PrimaryKey;
  * Created by @timomeh on 29/05/16.
  */
 
-
 public class Episode extends RealmObject {
 
     @PrimaryKey
