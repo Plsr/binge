@@ -5,18 +5,23 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import io.megaquiche.binge.models.Season;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by Timo Maemecke (@timomeh) on 27/05/16.
- * <p/>
- * TODO: Add a class header comment
+ * Created by @timomeh on 27/05/16.
  */
-public class Series {
+
+public class Series extends RealmObject {
+
     public static final String TMDB_BACKDROP_PREFIX = "http://image.tmdb.org/t/p/w780";
+
+    @PrimaryKey
+    @SerializedName("id")
+    private int mId;
 
     @SerializedName("name") private String mName;
     @SerializedName("original_name") private String mOriginalName;
-    @SerializedName("id") private int mId;
     @SerializedName("backdrop_path") private String mBackdropUrl;
     @SerializedName("poster_path") private String mPosterUrl;
     @SerializedName("overview") private String mDescription;
@@ -87,4 +92,5 @@ public class Series {
     public void setSeasons(List<Season> seasons) {
         mSeasons = seasons;
     }
+
 }
