@@ -24,6 +24,15 @@ public class Season extends RealmObject {
     private boolean mCompleted;
     private Series mSeries;
 
+    public Season() {
+        mId = 0;
+        mNumber = 0;
+        mEpisodeList = null;
+        mEpisodeCount = 0;
+        mCompleted = false;
+        mSeries = null;
+    }
+
     public Season(int number, int id, List<Episode> episodeList, int episodeCount, boolean completed, Series series) {
         mNumber = number;
         mId = id;

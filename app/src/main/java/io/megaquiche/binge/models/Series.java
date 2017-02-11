@@ -27,6 +27,16 @@ public class Series extends RealmObject {
     @SerializedName("overview") private String mDescription;
     @SerializedName("seasons") private List<Season> mSeasons;
 
+    public Series() {
+        mId = 0;
+        mName = null;
+        mOriginalName = null;
+        mBackdropUrl = null;
+        mPosterUrl = null;
+        mDescription = null;
+        mSeasons = null;
+    }
+
     public Series(String name, String originalName, int id, String backdropUrl, String posterUrl, String description, List<Season> seasons) {
         mName = name;
         mOriginalName = originalName;

@@ -20,8 +20,17 @@ public class Episode extends RealmObject {
     @SerializedName("name") private String mName;
     @SerializedName("season_number") private int mSeasonNumber;
 
-    private boolean mWatched;
-    private Season mSeason;
+    private boolean mWatched = false;
+    private Season mSeason = null;
+
+    // Default constructor, default values will be used by Realm
+    public Episode() {
+        mId = 0;
+        mNumber = 0;
+        mName = null;
+        mSeasonNumber = 0;
+        mSeason = null;
+    }
 
     public Episode(int number, String name, int id, int seasonNumber, boolean watched, Season season) {
         mNumber = number;
