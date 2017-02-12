@@ -103,5 +103,5 @@ public class Series extends RealmObject {
     public void setSeasons(RealmList<Season> seasons) {
         mSeasons = seasons;
     }
-
+  
 }
