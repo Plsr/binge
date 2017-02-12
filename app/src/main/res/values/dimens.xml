@@ -8,4 +8,9 @@
     <dimen name="card_screen_margin">8dp</dimen>
     <dimen name="card_element_margin">8dp</dimen>
 
+    <!-- List entry padding for text only lists -->
+    <!-- See https://material.io/guidelines/components/lists.html#lists-specs -->
+    <dimen name="text_list_entry_padding_horizontal">20dp</dimen>
+    <dimen name="text_list_entry_padding_vertical">8dp</dimen>
+
 </resources>

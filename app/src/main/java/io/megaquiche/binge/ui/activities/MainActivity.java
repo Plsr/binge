@@ -1,11 +1,13 @@
 package io.megaquiche.binge.ui.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.Window;
@@ -81,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
 
         List<SeriesDummy> dummyList = new ArrayList<SeriesDummy>();
 
-        SeriesDummy bigBangTheory = new SeriesDummy(getDrawable(R.drawable.placeholder_bbt_title),
+        SeriesDummy bigBangTheory = new SeriesDummy(R.drawable.placeholder_bbt_title, "placeholder_bbt_title",
                 "The Big Bang Theory", "Doktor Proton", "S06E08");
 
-        SeriesDummy greysAnatomy = new SeriesDummy(getDrawable(R.drawable.placeholder_ga_title),
+        SeriesDummy greysAnatomy = new SeriesDummy(R.drawable.placeholder_ga_title, "placeholder_ga_title",
                 "Greys Anatomy", "Ach Oh Gott die Liebe", "S18E02");
 
-        SeriesDummy betterCallSaul = new SeriesDummy(getDrawable(R.drawable.placeholder_bcs_title),
+        SeriesDummy betterCallSaul = new SeriesDummy(R.drawable.placeholder_bcs_title, "placeholder_bcs_title",
                 "Better Call Saul", "Tuco", "S01E06");
 
         dummyList.add(bigBangTheory);
@@ -98,7 +100,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityAdapt
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, SeriesDummy seriesDummy) {
         // TODO: Do things
+        Log.d(TAG, "onItemClick called for position: " + position); // DEBUG
+        Intent intent = new Intent(this, SeriesDetailActivity.class);
+        intent.putExtra("SERIES_DUMMY", seriesDummy);
+        startActivity(intent);
     }
 }

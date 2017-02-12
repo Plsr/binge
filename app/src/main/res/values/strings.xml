@@ -11,4 +11,7 @@
     <string name="image_description_placeholder">Image Description</string>
     <string name="episode_title_placeholder">An Edpisode</string>
     <string name="episode_number_placeholder">S00E00</string>
+
+    <string name="entry_title_placeholder">Entry title</string>
+    <string name="entry_subtitle_placeholder">Subtitle</string>
 </resources>

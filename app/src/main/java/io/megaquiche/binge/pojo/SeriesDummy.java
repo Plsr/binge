@@ -1,29 +1,50 @@
 package io.megaquiche.binge.pojo;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Cheese on 29/05/16.
  */
-public class SeriesDummy {
+public class SeriesDummy implements Parcelable{
 
-    Drawable titleImage;
+    int titleImageIdentifier;
     String seriesTitle;
     String episodeTitle;
     String episodeCount;
 
 
 
-    public SeriesDummy(Drawable titleImage, String seriesTitle, String episodeTitle, String episodeCount) {
-        this.titleImage = titleImage;
+    public SeriesDummy(int titleImage,String drawableName, String seriesTitle, String episodeTitle, String episodeCount) {
+        this.titleImageIdentifier = titleImage;
         this.seriesTitle = seriesTitle;
         this.episodeTitle = episodeTitle;
         this.episodeCount = episodeCount;
+
+
     }
 
-    public Drawable getTitleImage() {
-        return titleImage;
+    protected SeriesDummy(Parcel in) {
+        titleImageIdentifier = in.readInt();
+        seriesTitle = in.readString();
+        episodeTitle = in.readString();
+        episodeCount = in.readString();
+    }
+
+    public static final Creator<SeriesDummy> CREATOR = new Creator<SeriesDummy>() {
+        @Override
+        public SeriesDummy createFromParcel(Parcel in) {
+            return new SeriesDummy(in);
+        }
+
+        @Override
+        public SeriesDummy[] newArray(int size) {
+            return new SeriesDummy[size];
+        }
+    };
+
+    public int getTitleImageIdentifier() {
+        return titleImageIdentifier;
     }
 
     public String getSeriesTitle() {
@@ -36,5 +57,18 @@ public class SeriesDummy {
 
     public String getEpisodeCount() {
         return episodeCount;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(titleImageIdentifier);
+        dest.writeString(seriesTitle);
+        dest.writeString(episodeTitle);
+        dest.writeString(episodeCount);
     }
 }
