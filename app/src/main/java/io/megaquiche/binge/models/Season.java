@@ -1,9 +1,10 @@
-package io.megaquiche.binge.pojo;
+package io.megaquiche.binge.models;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import io.megaquiche.binge.models.Episode;
 
 /**
  * Created by Timo Maemecke (@timomeh) on 29/05/16.
@@ -14,11 +15,13 @@ public class Season {
     @SerializedName("season_number") private int mNumber;
     @SerializedName("id") private int mId;
     @SerializedName("episodes") private List<Episode> mEpisodeList;
+    @SerializedName("episode_count") private int mEpisodeCount;
 
-    public Season(int number, int id, List<Episode> episodeList) {
+    public Season(int number, int id, List<Episode> episodeList, int episodeCount) {
         mNumber = number;
         mId = id;
         mEpisodeList = episodeList;
+        mEpisodeCount = episodeCount;
     }
 
     public int getNumber() {
@@ -43,5 +46,13 @@ public class Season {
 
     public void setEpisodes(List<Episode> episodeList) {
         mEpisodeList = episodeList;
+    }
+
+    public int getEpisodeCount() {
+        return mEpisodeCount;
+    }
+
+    public void setEpisodeCount(int episodeCount) {
+        mEpisodeCount = episodeCount;
     }
 }

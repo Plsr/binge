@@ -1,8 +1,10 @@
-package io.megaquiche.binge.pojo;
+package io.megaquiche.binge.models;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import io.megaquiche.binge.models.Season;
 
 /**
  * Created by Timo Maemecke (@timomeh) on 27/05/16.
@@ -15,15 +17,17 @@ public class Series {
     @SerializedName("name") private String mName;
     @SerializedName("original_name") private String mOriginalName;
     @SerializedName("id") private int mId;
-    @SerializedName("backdrop_path") private String mImageUrl;
+    @SerializedName("backdrop_path") private String mBackdropUrl;
+    @SerializedName("poster_path") private String mPosterUrl;
     @SerializedName("overview") private String mDescription;
     @SerializedName("seasons") private List<Season> mSeasons;
 
-    public Series(String name, String originalName, int id, String imageUrl, String description, List<Season> seasons) {
+    public Series(String name, String originalName, int id, String backdropUrl, String posterUrl, String description, List<Season> seasons) {
         mName = name;
         mOriginalName = originalName;
         mId = id;
-        mImageUrl = imageUrl;
+        mBackdropUrl = backdropUrl;
+        mPosterUrl = posterUrl;
         mDescription = description;
         mSeasons = seasons;
     }
@@ -52,12 +56,20 @@ public class Series {
         mOriginalName = originalName;
     }
 
-    public String getImageUrl() {
-        return TMDB_BACKDROP_PREFIX + mImageUrl;
+    public String getBackdropUrl() {
+        return TMDB_BACKDROP_PREFIX + mBackdropUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        mImageUrl = imageUrl;
+    public void setBackdropUrl(String backdropUrl) {
+        mBackdropUrl = backdropUrl;
+    }
+
+    public String getPosterUrl() {
+        return mPosterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        mPosterUrl = posterUrl;
     }
 
     public String getDescription() {

@@ -1,8 +1,10 @@
-package io.megaquiche.binge.pojo;
+package io.megaquiche.binge.models;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import io.megaquiche.binge.models.Series;
 
 /**
  * Created by Timo Maemecke (@timomeh) on 02/06/16.
