@@ -56,9 +56,11 @@ public class SeriesDetailActivity extends AppCompatActivity {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             // Respond to the overflow menu icon
-            case R.id.action_overflow_menu:
-                // TODO: Show the overflow menu.
-                // menu items not yet defined.
+            case R.id.action_delete:
+                // TODO: Delete current season
+                return true;
+            case R.id.action_refresh:
+                // TODO: Refresh current series
                 return true;
         }
         return super.onOptionsItemSelected(item);

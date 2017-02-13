@@ -3,6 +3,8 @@
     <string name="preferences_file_key">io.megaquiche.binge.PREFERENCES</string>
 
     <string name="action_search">Search</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_refresh">Refresh</string>
     <string name="activity_main_title">Meine Serien</string>
 
     <string name="action_mark_watched_image_description">Checkmark</string>
