@@ -1,24 +1,43 @@
 package io.megaquiche.binge.models;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
- * Created by Timo Maemecke (@timomeh) on 29/05/16.
- * <p/>
- * TODO: Add a class header comment
+ * Created by @timomeh on 29/05/16.
  */
-public class Episode {
+
+public class Episode extends RealmObject {
+
+    @PrimaryKey
+    @SerializedName("id")
+    private int mId;
+
     @SerializedName("episode_number") private int mNumber;
     @SerializedName("name") private String mName;
-    @SerializedName("id") private int mId;
     @SerializedName("season_number") private int mSeasonNumber;
 
-    public Episode(int number, String name, int id, int seasonNumber) {
+    private boolean mWatched = false;
+    private Season mSeason = null;
+
+    // Default constructor, default values will be used by Realm
+    public Episode() {
+        mId = 0;
+        mNumber = 0;
+        mName = null;
+        mSeasonNumber = 0;
+        mSeason = null;
+    }
+
+    public Episode(int number, String name, int id, int seasonNumber, boolean watched, Season season) {
         mNumber = number;
         mName = name;
         mId = id;
         mSeasonNumber = seasonNumber;
+        mWatched = watched;
+        mSeason = season;
     }
 
     public int getNumber() {
@@ -67,4 +86,15 @@ public class Episode {
         sb.append(mNumber);
         return sb.toString();
     }
+
+    public boolean isWatched() {
+        return mWatched;
+    }
+
+    public void setWatched(boolean watched) {
+        mWatched = watched;
+    }
+
+    // Season has intentionally no getter/setter, because it's managed by Realm.
+
 }

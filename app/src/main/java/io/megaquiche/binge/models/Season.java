@@ -5,23 +5,42 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import io.megaquiche.binge.models.Episode;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by Timo Maemecke (@timomeh) on 29/05/16.
- * <p/>
- * TODO: Add a class header comment
+ * Created by @timomeh on 29/05/16.
  */
-public class Season {
-    @SerializedName("season_number") private int mNumber;
+
+public class Season extends RealmObject {
+
+    @PrimaryKey
     @SerializedName("id") private int mId;
-    @SerializedName("episodes") private List<Episode> mEpisodeList;
+
+    @SerializedName("season_number") private int mNumber;
+    @SerializedName("episodes") private RealmList<Episode> mEpisodeList;
     @SerializedName("episode_count") private int mEpisodeCount;
 
-    public Season(int number, int id, List<Episode> episodeList, int episodeCount) {
+    private boolean mCompleted;
+    private Series mSeries;
+
+    public Season() {
+        mId = 0;
+        mNumber = 0;
+        mEpisodeList = null;
+        mEpisodeCount = 0;
+        mCompleted = false;
+        mSeries = null;
+    }
+
+    public Season(int number, int id, RealmList<Episode> episodeList, int episodeCount, boolean completed, Series series) {
         mNumber = number;
         mId = id;
         mEpisodeList = episodeList;
         mEpisodeCount = episodeCount;
+        mSeries = series;
+        mCompleted = completed;
     }
 
     public int getNumber() {
@@ -44,7 +63,7 @@ public class Season {
         return mEpisodeList;
     }
 
-    public void setEpisodes(List<Episode> episodeList) {
+    public void setEpisodes(RealmList<Episode> episodeList) {
         mEpisodeList = episodeList;
     }
 
@@ -55,4 +74,15 @@ public class Season {
     public void setEpisodeCount(int episodeCount) {
         mEpisodeCount = episodeCount;
     }
+
+    public boolean isCompleted() {
+        return mCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        mCompleted = completed;
+    }
+
+    // Series has intentionally no getter/setter, because it's managed by Realm.
+
 }

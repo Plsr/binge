@@ -5,24 +5,40 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import io.megaquiche.binge.models.Season;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by Timo Maemecke (@timomeh) on 27/05/16.
- * <p/>
- * TODO: Add a class header comment
+ * Created by @timomeh on 27/05/16.
  */
-public class Series {
+
+public class Series extends RealmObject {
+
     public static final String TMDB_BACKDROP_PREFIX = "http://image.tmdb.org/t/p/w780";
+
+    @PrimaryKey
+    @SerializedName("id")
+    private int mId;
 
     @SerializedName("name") private String mName;
     @SerializedName("original_name") private String mOriginalName;
-    @SerializedName("id") private int mId;
     @SerializedName("backdrop_path") private String mBackdropUrl;
     @SerializedName("poster_path") private String mPosterUrl;
     @SerializedName("overview") private String mDescription;
-    @SerializedName("seasons") private List<Season> mSeasons;
+    @SerializedName("seasons") private RealmList<Season> mSeasons;
 
-    public Series(String name, String originalName, int id, String backdropUrl, String posterUrl, String description, List<Season> seasons) {
+    public Series() {
+        mId = 0;
+        mName = null;
+        mOriginalName = null;
+        mBackdropUrl = null;
+        mPosterUrl = null;
+        mDescription = null;
+        mSeasons = null;
+    }
+
+    public Series(String name, String originalName, int id, String backdropUrl, String posterUrl, String description, RealmList<Season> seasons) {
         mName = name;
         mOriginalName = originalName;
         mId = id;
@@ -84,7 +100,8 @@ public class Series {
         return mSeasons;
     }
 
-    public void setSeasons(List<Season> seasons) {
+    public void setSeasons(RealmList<Season> seasons) {
         mSeasons = seasons;
     }
+  
 }
